@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Riemann_Sum.cpp">
+    <ClCompile Include="Integration.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

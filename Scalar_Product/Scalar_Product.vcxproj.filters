@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Scalar_Product.cpp">
+    <ClCompile Include="ScalarProduct.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

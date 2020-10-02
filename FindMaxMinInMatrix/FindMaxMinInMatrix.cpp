@@ -44,6 +44,12 @@ double MaxMinInTriangularMatrix(unsigned N, double** a) {
     return max_min_in_triangular_matrix;
 }
 
+double MaxMinInDiagonalMatrix(unsigned N, double** a) {
+    double max_min_in_diagonal_matrix = .0;
+
+    return max_min_in_diagonal_matrix;
+}
+
 int main() {
     const unsigned N = 10;
 
