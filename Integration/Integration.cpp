@@ -1,4 +1,5 @@
 #include <iostream>
+#include <omp.h>
 
 using namespace std;
 
@@ -19,6 +20,27 @@ double RiemannIntegral(double a, double b, unsigned num_subintervals) {
 	}
 	
 	return riemann_integral;
+}
+
+double RiemannIntegralParallel(double a, double b, unsigned num_subintervals) {
+	const double width = (b - a) / num_subintervals;
+
+	double riemann_integral_parallel = 0.;
+	int step;
+
+	#pragma omp parallel
+	{
+		#pragma omp for private(step)
+		for (step = 0; step < num_subintervals; ++step) {
+			const double x = a + width * step; //sample at left endpoint
+			// const double x = a + width * step + width/2; //sample at midpoint
+			// const double x = a + width * step + width; //sample at right endpoint
+
+			riemann_integral_parallel += f(x) * width;
+		}
+	}
+
+	return riemann_integral_parallel;
 }
 
 double TrapezoidalIntegral(double a, double b, unsigned num_subintervals) {
@@ -52,9 +74,18 @@ double SimpsonIntegral(double a, double b, unsigned num_subintervals) {
 int main() {
 	double a = -1.;
 	double b = 1.;
-	unsigned num_subintervals = 100;
+	unsigned num_subintervals = 1000000;
 
-	cout << "RiemannIntegral " << RiemannIntegral(a, b, num_subintervals) << endl;
+	double start = omp_get_wtime();
+	cout << "RiemannIntegral: " << RiemannIntegral(a, b, num_subintervals) << endl;
+	double end = omp_get_wtime();
+	cout << "Wtime: " << end - start << endl << endl;
+
+	double start2 = omp_get_wtime();
+	cout << "RiemannIntegralParallel: " << RiemannIntegralParallel(a, b, num_subintervals) << endl;
+	double end2 = omp_get_wtime();
+	cout << "Parallel Wtime: " << end2 - start2 << endl;
+
 	cout << "TrapezoidalIntegral " << TrapezoidalIntegral(a, b, num_subintervals) << endl;
 	cout << "SimpsonIntegral " << SimpsonIntegral(a, b, num_subintervals) << endl;
 	

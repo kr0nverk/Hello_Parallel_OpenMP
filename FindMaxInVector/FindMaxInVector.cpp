@@ -47,18 +47,14 @@ int main() {
         temp.push_back(rand());
     }
 
-    double start;
-    double end;
-    start = omp_get_wtime();
+    double start = omp_get_wtime();
     cout << "Max in vector: " << FindMaxInVector(temp) << endl;
-    end = omp_get_wtime();
+    double end = omp_get_wtime();
     cout << "Wtime: " << end - start << endl;
     
-    double start2;
-    double end2;
-    start2 = omp_get_wtime();
+    double start2 = omp_get_wtime();
     cout << "Parallel Max in vector: " << FindMaxInVectorParallel(temp) << endl;
-    end2 = omp_get_wtime();
+    double end2 = omp_get_wtime();
     cout << "Parallel Wtime: " << end2 - start2 << endl;
 
     return 0;
