@@ -1,45 +1,34 @@
 #include <iostream>
 #include <omp.h>
-#include <vector>
 #include <ctime>
-
+#include <fstream>
+#include <iomanip>
 
 using namespace std;
 
 
 int main() {
-	srand(time(0));
-	vector<double> a;
 
-	int num_subintervals = 10000000;
+	ofstream fout;
+    fout.open("C:\\Users\\vovan\\source\\repos\\Hello_Parallel\\RunForestRun\\a.txt");
 
-	for (int i = 0; i < num_subintervals; ++i) {
-		a.push_back(rand()%100);
-	}
+    if (fout.is_open())
+    {
+        double temp = 123456789.;
+        fout << fixed << setprecision(0) << temp;
+    }
 
+    #pragma omp parallel section
+    {
+        #pragma omp section
+        {
 
-	double start = omp_get_wtime();
+        }
+        #pragma omp section
+        {
 
-	#pragma omp parallel
-	{
-		#pragma omp for
-		for (int i = 0; i < num_subintervals; ++i) {
-			a[i] += 1;
-		}
-
-	}
-
-	double end = omp_get_wtime();
-	cout << end - start << endl;
-
-	double start2 = omp_get_wtime();
-
-	for (int i = 0; i < num_subintervals; ++i) {
-		a[i] += 1;
-	}
-
-	double end2 = omp_get_wtime();
-	cout << end2 - start2 << endl;
+        }
+    }
 
 	return 0;
 }
