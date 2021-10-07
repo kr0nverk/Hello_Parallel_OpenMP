@@ -13,7 +13,7 @@ double ScalarProduct(vector<double> a, vector<double> b) {
 
     double scalar_product = 0;
 
-    for (int i = 0; i <= a.size() - 1; ++i) {
+    for (int i = 0; i < a.size(); ++i) {
         scalar_product += (a[i]) * (b[i]);
     }
 
@@ -45,7 +45,7 @@ int main() {
     vector<double> veca;
     vector<double> vecb;
 
-    for (int i = 0; i < 1000000; ++i) {
+    for (int i = 0; i < 1000; ++i) {
         veca.push_back(rand());
         vecb.push_back(rand());
     }
