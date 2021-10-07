@@ -140,7 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Hello_Parallel\matrix.cpp">
+    <ClCompile Include="..\Hello_Parallel\StaticDynamicGuided.cpp">
       <OpenMPSupport Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</OpenMPSupport>
     </ClCompile>
   </ItemGroup>

@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Hello_Parallel\matrix.cpp">
+    <ClCompile Include="..\Hello_Parallel\StaticDynamicGuided.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
