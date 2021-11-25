@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hello", "Hello_Parallel\Hello_Parallel.vcxproj", "{157FB920-C922-42B9-89DD-9041697CC870}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Matrix", "Matrix\Matrix.vcxproj", "{F9F71317-47C1-43B8-9A7C-8386989C8635}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StaticDynamicGuided", "Matrix\Matrix.vcxproj", "{F9F71317-47C1-43B8-9A7C-8386989C8635}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FindMaxInVector", "FindMaxInVector\FindMaxInVector.vcxproj", "{9C3A739C-08F9-4BB4-89AA-ACA6C4C0ADB4}"
 EndProject
@@ -17,7 +17,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FindMaxMinInMatrix", "FindM
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RunForestRun", "RunForestRun\RunForestRun.vcxproj", "{E22D215E-990E-497E-AA4D-9314338596C8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GravSim", "GravSim\GravSim.vcxproj", "{3044A676-350E-43EE-AC03-8CB9F42824EE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Reduction", "Reduction\Reduction.vcxproj", "{334C0A1C-67A5-4CF3-A921-0FA0D726E3B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,14 +83,14 @@ Global
 		{E22D215E-990E-497E-AA4D-9314338596C8}.Release|x64.Build.0 = Release|x64
 		{E22D215E-990E-497E-AA4D-9314338596C8}.Release|x86.ActiveCfg = Release|Win32
 		{E22D215E-990E-497E-AA4D-9314338596C8}.Release|x86.Build.0 = Release|Win32
-		{3044A676-350E-43EE-AC03-8CB9F42824EE}.Debug|x64.ActiveCfg = Debug|x64
-		{3044A676-350E-43EE-AC03-8CB9F42824EE}.Debug|x64.Build.0 = Debug|x64
-		{3044A676-350E-43EE-AC03-8CB9F42824EE}.Debug|x86.ActiveCfg = Debug|Win32
-		{3044A676-350E-43EE-AC03-8CB9F42824EE}.Debug|x86.Build.0 = Debug|Win32
-		{3044A676-350E-43EE-AC03-8CB9F42824EE}.Release|x64.ActiveCfg = Release|x64
-		{3044A676-350E-43EE-AC03-8CB9F42824EE}.Release|x64.Build.0 = Release|x64
-		{3044A676-350E-43EE-AC03-8CB9F42824EE}.Release|x86.ActiveCfg = Release|Win32
-		{3044A676-350E-43EE-AC03-8CB9F42824EE}.Release|x86.Build.0 = Release|Win32
+		{334C0A1C-67A5-4CF3-A921-0FA0D726E3B3}.Debug|x64.ActiveCfg = Debug|x64
+		{334C0A1C-67A5-4CF3-A921-0FA0D726E3B3}.Debug|x64.Build.0 = Debug|x64
+		{334C0A1C-67A5-4CF3-A921-0FA0D726E3B3}.Debug|x86.ActiveCfg = Debug|Win32
+		{334C0A1C-67A5-4CF3-A921-0FA0D726E3B3}.Debug|x86.Build.0 = Debug|Win32
+		{334C0A1C-67A5-4CF3-A921-0FA0D726E3B3}.Release|x64.ActiveCfg = Release|x64
+		{334C0A1C-67A5-4CF3-A921-0FA0D726E3B3}.Release|x64.Build.0 = Release|x64
+		{334C0A1C-67A5-4CF3-A921-0FA0D726E3B3}.Release|x86.ActiveCfg = Release|Win32
+		{334C0A1C-67A5-4CF3-A921-0FA0D726E3B3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

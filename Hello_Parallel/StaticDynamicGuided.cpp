@@ -93,13 +93,16 @@ void ParallelForGuided(unsigned num_size, double* Matrix, int chunk) {
 int main()
 {
 	srand(time(0));
-	const unsigned num_size = 100000000;
+	const unsigned num_size = 1000000;
 	int sum = 0;
 	double* Matrix = new double [num_size];
 
 	sum = 0;
-	cout << "N: " << num_size << endl;
-	cout << "For" << endl;
+	cout << endl;
+	cout << "                   For                " << endl;
+	cout << "  ------------------------------------" << endl;
+	cout << "          time           result       " << endl;
+	cout << "  ------------------------------------" << endl;
 	
 	double start = omp_get_wtime();
 	NonParsllelMatrix(num_size, Matrix);
@@ -109,28 +112,37 @@ int main()
 		sum = sum + Matrix[i];
 	}
 	cout << setprecision(5);
-	cout << setw(10) << left << "Wtime: " << setw(11) << left << end - start <<" "<< sum << endl << endl;
+	cout << setw(10) << left << "       " << setw(11) << left << end - start <<" "<< sum << endl;
 
 	int i;
 	int chunk;
 
 	sum = 0;
-	cout << "For parallel" << endl;
+	cout << endl;
+	cout << "               For parallel           " << endl;
+	cout << "  ------------------------------------" << endl;
+	cout << "          time           result       " << endl;
+	cout << "  ------------------------------------" << endl;
+
 	
 	start = omp_get_wtime();
 	ParallelFor(num_size, Matrix);
 	end = omp_get_wtime();
+	 
 	
 	for (int i = 0; i < num_size; ++i) {
 		sum = sum + Matrix[i];
 	}
 	cout << setprecision(5);
-	cout << setw(10) << left << "Wtime: " << setw(11) << left << end - start << " " << sum << endl << endl;
+	cout << setw(10) << left << "       " << setw(11) << left << end - start << " " << sum << endl;
 
 
 	sum = 0;
-	cout << "For static" << endl;
-	cout << setw(6) << right << " chunk" << setw(11) << left << " - Wtime:" << endl;
+	cout << endl;
+	cout << "                For static            " << endl;
+	cout << "  ------------------------------------" << endl;
+	cout << "          time           result       " << endl;
+	cout << "  ------------------------------------" << endl;
 	for (int chunk = 1; chunk <= num_size/8; chunk *= 2) {
 		
 		start = omp_get_wtime();
@@ -143,12 +155,14 @@ int main()
 		cout << setprecision(5);
 		cout << setw(7) << right << chunk << " - " << setw(11) << left << end - start << " " << sum << endl;
 	}
-	cout << endl;
 
 
 	sum = 0;
-	cout << "For dynamic" << endl;
-	cout << setw(6) << right << " chunk" << setw(11) << left << " - Wtime:" << endl;
+	cout << endl;
+	cout << "               For dynamic            " << endl;
+	cout << "  ------------------------------------" << endl;
+	cout << "  chunk - time           result       " << endl;
+	cout << "  ------------------------------------" << endl;
 	for (int chunk = 1; chunk <= num_size / 8; chunk *= 2) {
 		
 		start = omp_get_wtime();
@@ -161,11 +175,13 @@ int main()
 		cout << setprecision(5);
 		cout << setw(7) << right << chunk << " - " << setw(11) << left << end - start << " " << sum << endl;
 	}
-	cout << endl;
 
 	sum = 0;
-	cout << "For guided" << endl;
-	cout << setw(6) << right << " chunk" << setw(11) << left << " - Wtime:" << endl;
+	cout << endl;
+	cout << "               For guided             " << endl;
+	cout << "  ------------------------------------" << endl;
+	cout << "  chunk - time           result       " << endl;
+	cout << "  ------------------------------------" << endl;
 	for (int chunk = 1; chunk <= num_size / 8; chunk *= 2) {
 		
 		start = omp_get_wtime();
@@ -178,7 +194,6 @@ int main()
 		cout << setprecision(5);
 		cout << setw(7) << right << chunk << " - " << setw(11) << left << end - start << " " << sum << endl;
 	}
-	cout << endl;
 
 
 	delete[]Matrix;

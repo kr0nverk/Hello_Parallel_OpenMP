@@ -1,12 +1,15 @@
 #include <iostream>
 #include <omp.h>
+#include <iomanip>
 
 using namespace std;
 
+/*f*/
 double f(double x) {
 	return x*x;
 }
 
+/*RiemannIntegral*/
 double RiemannIntegral(double a, double b, unsigned num_subintervals) {
 	const double width = (b - a) / num_subintervals;
 
@@ -22,6 +25,7 @@ double RiemannIntegral(double a, double b, unsigned num_subintervals) {
 	return riemann_integral;
 }
 
+/*RiemannIntegralParallel*/
 double RiemannIntegralParallel(double a, double b, unsigned num_subintervals) {
 	const double width = (b - a) / num_subintervals;
 
@@ -43,6 +47,7 @@ double RiemannIntegralParallel(double a, double b, unsigned num_subintervals) {
 	return riemann_integral_parallel;
 }
 
+/*TrapezoidalIntegral*/
 double TrapezoidalIntegral(double a, double b, unsigned num_subintervals) {
 	const double width = (b - a) / num_subintervals;
 
@@ -57,6 +62,7 @@ double TrapezoidalIntegral(double a, double b, unsigned num_subintervals) {
 	return trapezoidal_integral;
 }
 
+/*TrapezoidalIntegralParallel*/
 double TrapezoidalIntegralParallel(double a, double b, unsigned num_subintervals) {
 	const double width = (b - a) / num_subintervals;
 
@@ -75,6 +81,7 @@ double TrapezoidalIntegralParallel(double a, double b, unsigned num_subintervals
 	return trapezoidal_integral_parallel;
 }
 
+/*SimpsonIntegral*/
 double SimpsonIntegral(double a, double b, unsigned num_subintervals) {
 	const double width = (b - a) / num_subintervals;
 
@@ -89,6 +96,7 @@ double SimpsonIntegral(double a, double b, unsigned num_subintervals) {
 	return simpson_integral;
 }
 
+/*SimpsonIntegralParallel*/
 double SimpsonIntegralParallel(double a, double b, unsigned num_subintervals) {
 	const double width = (b - a) / num_subintervals;
 
@@ -112,37 +120,80 @@ double SimpsonIntegralParallel(double a, double b, unsigned num_subintervals) {
 int main() {
 	double a = -1.;
 	double b = 1.;
-	const unsigned num_subintervals = 10000000;
+	const unsigned num_subintervals = 67108864;
+	double start, end, result, time, start_parallel, end_parallel, result_parallel, time_parallel;
 
-	double start = omp_get_wtime();
-	cout << "RiemannIntegral: " << RiemannIntegral(a, b, num_subintervals) << endl;
-	double end = omp_get_wtime();
-	cout << "Wtime: " << end - start << endl << endl;
+	cout << endl;
+	cout << "                        Riemann Integral                       " << endl;
+	cout << "  -------------------------------------------------------------" << endl;
+	cout << "         i  |       times        |    a   |      results       " << endl;
+	cout << "  -------------------------------------------------------------" << endl;
+	for (int i = 2; i <= num_subintervals; i *= 2) {
+		start = omp_get_wtime();
+		result = RiemannIntegral(a, b, i);
+		end = omp_get_wtime();
+		time = end - start;
 
-	double start2 = omp_get_wtime();
-	cout << "RiemannIntegralParallel: " << RiemannIntegralParallel(a, b, num_subintervals) << endl;
-	double end2 = omp_get_wtime();
-	cout << "Parallel Wtime: " << end2 - start2 << endl << endl;
+		start_parallel = omp_get_wtime();
+		result_parallel = RiemannIntegralParallel(a, b, i);
+		end_parallel = omp_get_wtime();
+		time_parallel = end_parallel - start_parallel;
 
-	double start3 = omp_get_wtime();
-	cout << "TrapezoidalIntegral: " << TrapezoidalIntegral(a, b, num_subintervals) << endl;
-	double end3 = omp_get_wtime();
-	cout << "Wtime: " << end3 - start3 << endl << endl;
+		cout << setw(10) << right << i << "  |  " \
+			<< fixed << setprecision(4) << time << "    " \
+			<< fixed << setprecision(4) << time_parallel << "  | " \
+			<< setw(5) << fixed << setprecision(2) << (time)/(time_parallel) << "  |  " \
+			<< fixed << setprecision(4) << result << "    " \
+			<< fixed << setprecision(4) << result_parallel << endl;
+	}
 
-	double start4 = omp_get_wtime();
-	cout << "TrapezoidalIntegralParallel: " << TrapezoidalIntegralParallel(a, b, num_subintervals) << endl;
-	double end4 = omp_get_wtime();
-	cout << "Parallel Wtime: " << end4 - start4 << endl << endl;
+	cout << endl;
+	cout << "                      Trapezoidal Integral                     " << endl;
+	cout << "  -------------------------------------------------------------" << endl;
+	cout << "         i  |       times        |    a   |      results       " << endl;
+	cout << "  -------------------------------------------------------------" << endl;
+	for (int i = 2; i <= num_subintervals; i *= 2) {
+		start = omp_get_wtime();
+		result = TrapezoidalIntegral(a, b, i);
+		end = omp_get_wtime();
+		time = end - start;
 
-	double start5 = omp_get_wtime();
-	cout << "SimpsonIntegral: " << SimpsonIntegral(a, b, num_subintervals) << endl;
-	double end5 = omp_get_wtime();
-	cout << "Wtime: " << end5 - start5 << endl << endl;
+		start_parallel = omp_get_wtime();
+		result_parallel = TrapezoidalIntegralParallel(a, b, i);
+		end_parallel = omp_get_wtime();
+		time_parallel = end_parallel - start_parallel;
 
-	double start6 = omp_get_wtime();
-	cout << "SimpsonIntegralParallel: " << SimpsonIntegralParallel(a, b, num_subintervals) << endl;
-	double end6 = omp_get_wtime();
-	cout << "Parallel Wtime: " << end6 - start6 << endl << endl;
-	
+		cout << setw(10) << right << i << "  |  " \
+			<< fixed << setprecision(4) << time << "    " \
+			<< fixed << setprecision(4) << time_parallel << "  | " \
+			<< setw(5) << fixed << setprecision(2) << (time) / (time_parallel) << "  |  " \
+			<< fixed << setprecision(4) << result << "    " \
+			<< fixed << setprecision(4) << result_parallel << endl;
+	}
+
+	cout << endl;
+	cout << "                        Simpson Integral                       " << endl;
+	cout << "  -------------------------------------------------------------" << endl;
+	cout << "         i  |       times        |    a   |      results       " << endl;
+	cout << "  -------------------------------------------------------------" << endl;
+	for (int i = 2; i <= num_subintervals; i *= 2) {
+		start = omp_get_wtime();
+		result = SimpsonIntegral(a, b, i);
+		end = omp_get_wtime();
+		time = end - start;
+
+		start_parallel = omp_get_wtime();
+		result_parallel = SimpsonIntegralParallel(a, b, i);
+		end_parallel = omp_get_wtime();
+		time_parallel = end_parallel - start_parallel;
+
+		cout << setw(10) << right << i << "  |  " \
+			<< fixed << setprecision(4) << time << "    " \
+			<< fixed << setprecision(4) << time_parallel << "  | " \
+			<< setw(5) << fixed << setprecision(2) << (time) / (time_parallel) << "  |  " \
+			<< fixed << setprecision(4) << result << "    " \
+			<< fixed << setprecision(4) << result_parallel << endl;
+	}
+
 	return 0;
 }

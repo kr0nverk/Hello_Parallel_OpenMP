@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{3044a676-350e-43ee-ac03-8cb9f42824ee}</ProjectGuid>
-    <RootNamespace>GravSim</RootNamespace>
+    <ProjectGuid>{334c0a1c-67a5-4cf3-a921-0fa0d726e3b3}</ProjectGuid>
+    <RootNamespace>Reduction</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -140,7 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GravSim.cpp" />
+    <ClCompile Include="Reduction.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
