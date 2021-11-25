@@ -90,7 +90,7 @@ int main() {
 	cout << "     i     |  time   time_r  time_l  time_c  time_a |   r     l     c     a   |                               results                             " << endl;
 	cout << "  ---------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
 
-	for (int i = 1000000; i <= num_size; i += 1000000) {
+	for (int i = 500000; i <= num_size; i += 500000) {
 
 		start = omp_get_wtime();
 		result = NonParallel(i, Matrix);

@@ -57,7 +57,7 @@ int main() {
     cout << "  -------------------------------------------------------------" << endl;
     cout << "         i  |       times        |    a   |      results       " << endl;
     cout << "  -------------------------------------------------------------" << endl;
-    for (int i = 1000000; i <= n; i += 1000000) {
+    for (int i = 4; i <= n; i *= 2) {
         start = omp_get_wtime();
         result = ScalarProduct(veca, vecb, i);
         end = omp_get_wtime();
