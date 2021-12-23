@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <omp.h>
 #include <ctime>
+#include <Windows.h>
 
 using namespace std;
 
@@ -131,8 +132,15 @@ double MaxMinInDiagonalMatrixParallel(unsigned num_size, double** Matrix) {
 }
 
 int main() {
+
+    HANDLE  hout = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD  size;
+    size.X = 128;
+    size.Y = 1001;
+    SetConsoleScreenBufferSize(hout, size);
+
     srand(time(0));
-    const unsigned num_size = 8192;
+    const unsigned num_size = 17000;
 
     double** Matrix = new double* [num_size];
     for (int i = 0; i < num_size; ++i) {
@@ -148,52 +156,62 @@ int main() {
     }
     double start, end, result, time, start_parallel, end_parallel, result_parallel, time_parallel;
 
-    cout << endl;
-    cout << "                        Max Min In Matrix                      " << endl;
-    cout << "  -------------------------------------------------------------" << endl;
-    cout << "         i  |       times        |    a   |      results       " << endl;
-    cout << "  -------------------------------------------------------------" << endl;
-    for (int i = 1; i <= num_size; i *= 2) {
-        start = omp_get_wtime();
-        result = MaxMinInMatrix(i, Matrix);
-        end = omp_get_wtime();
-        time = end - start;
 
-        start_parallel = omp_get_wtime();
-        result_parallel = MaxMinInMatrixParallel(i, Matrix);
-        end_parallel = omp_get_wtime();
-        time_parallel = end_parallel - start_parallel;
+    omp_set_dynamic(0);
+    int max_number_of_threads = omp_get_max_threads();
+    for (int number_of_threads = 2; number_of_threads <= max_number_of_threads; ++number_of_threads) {
+        omp_set_num_threads(number_of_threads);
 
-        cout << setw(10) << right << i << "  |  " \
-            << fixed << setprecision(4) << time << "    " \
-            << fixed << setprecision(4) << time_parallel << "  |  " \
-            << fixed << setprecision(2) << (time) / (time_parallel) << "  |  " \
-            << setprecision(0) << result << "    " \
-            << setprecision(0) << result_parallel << endl;
-    }
+        cout << endl;
+        cout << endl;
+        cout << "  number of threads = " << number_of_threads << endl;
+        cout << "  -------------------------------------------------------------" << endl;
+        cout << "                        Max Min In Matrix                      " << endl;
+        cout << "  -------------------------------------------------------------" << endl;
+        cout << "         i  |       times        |    s   |      results       " << endl;
+        cout << "  -------------------------------------------------------------" << endl;
+        for (int i = 1; i <= num_size; i *= 2) {
+            start = omp_get_wtime();
+            result = MaxMinInMatrix(i, Matrix);
+            end = omp_get_wtime();
+            time = end - start;
 
-    cout << endl;
-    cout << "                   Max Min In Triangular Matrix                " << endl;
-    cout << "  -------------------------------------------------------------" << endl;
-    cout << "         i  |       times        |    a   |      results       " << endl;
-    cout << "  -------------------------------------------------------------" << endl;
-    for (int i = 1; i <= num_size; i *= 2) {
-        start = omp_get_wtime();
-        result = MaxMinInTriangularMatrix(i, Matrix);
-        end = omp_get_wtime();
-        time = end - start;
+            start_parallel = omp_get_wtime();
+            result_parallel = MaxMinInMatrixParallel(i, Matrix);
+            end_parallel = omp_get_wtime();
+            time_parallel = end_parallel - start_parallel;
 
-        start_parallel = omp_get_wtime();
-        result_parallel = MaxMinInTriangularMatrixParallel(i, Matrix);
-        end_parallel = omp_get_wtime();
-        time_parallel = end_parallel - start_parallel;
+            cout << setw(10) << right << i << "  |  " \
+                << fixed << setprecision(4) << time << "    " \
+                << fixed << setprecision(4) << time_parallel << "  |  " \
+                << fixed << setprecision(2) << (time) / (time_parallel) << "  |  " \
+                << setprecision(0) << result << "    " \
+                << setprecision(0) << result_parallel << endl;
+        }
 
-        cout << setw(10) << right << i << "  |  " \
-            << fixed << setprecision(4) << time << "    " \
-            << fixed << setprecision(4) << time_parallel << "  |  " \
-            << fixed << setprecision(2) << (time) / (time_parallel) << "  |  " \
-            << fixed << setprecision(0) << result << "    " \
-            << fixed << setprecision(0) << result_parallel << endl;
+        cout << endl;
+        cout << "                   Max Min In Triangular Matrix                " << endl;
+        cout << "  -------------------------------------------------------------" << endl;
+        cout << "         i  |       times        |    s   |      results       " << endl;
+        cout << "  -------------------------------------------------------------" << endl;
+        for (int i = 1; i <= num_size; i *= 2) {
+            start = omp_get_wtime();
+            result = MaxMinInTriangularMatrix(i, Matrix);
+            end = omp_get_wtime();
+            time = end - start;
+
+            start_parallel = omp_get_wtime();
+            result_parallel = MaxMinInTriangularMatrixParallel(i, Matrix);
+            end_parallel = omp_get_wtime();
+            time_parallel = end_parallel - start_parallel;
+
+            cout << setw(10) << right << i << "  |  " \
+                << fixed << setprecision(4) << time << "    " \
+                << fixed << setprecision(4) << time_parallel << "  |  " \
+                << fixed << setprecision(2) << (time) / (time_parallel) << "  |  " \
+                << fixed << setprecision(0) << result << "    " \
+                << fixed << setprecision(0) << result_parallel << endl;
+        }
     }
 
     for (int i = 0; i < num_size; ++i) {
